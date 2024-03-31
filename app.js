@@ -23,12 +23,6 @@ app.use(cors(
 ))
 
 app.get('/movies', (req, res) => {
-  // Solucion manual a CORS
-  /* const origin = req.header('origin')
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-  } */
-
   const { genre } = req.query
   if (genre) {
     const filteredMovies = movies.filter(
@@ -88,12 +82,6 @@ app.patch('/movies/:id', (req, res) => {
 })
 
 app.delete('/movies/:id', (req, res) => {
-  // Solucion manual a CORS
-  /* const origin = req.header('origin')
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-  } */
-
   const { id } = req.params
   const movieIndex = movies.findIndex(movie => movie.id === id)
 
@@ -104,17 +92,6 @@ app.delete('/movies/:id', (req, res) => {
 
   return res.status(204).send()
 })
-
-// Solucion manual a CORS
-/* app.options('/movies/:id', (req, res) => {
-  const origin = req.header('origin')
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE')
-  }
-
-  res.send(200)
-}) */
 
 const PORT = process.env.PORT ?? 1234
 app.listen(PORT, () => {
