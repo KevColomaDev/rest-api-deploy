@@ -1,10 +1,19 @@
-const express = require('express')
+import express, { json } from 'express'
+import { randomUUID } from 'node:crypto'
+import cors from 'cors'
+import { ValidateMovie, ValidatePartialMovie } from './schemas/movies.js'
+
+// Como importar un JSON con fileSystem
+/* import fs from 'node:fs'
+const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf-8')) */
+
+// Como importar un JSON recomendado
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
 const movies = require('./movies.json')
-const crypto = require('node:crypto')
-const cors = require('cors')
-const { ValidateMovie, ValidatePartialMovie } = require('./schemas/movies.js')
+
 const app = express()
-app.use(express.json())
+app.use(json())
 app.disable('x-powered-by')
 app.use(cors(
   {
@@ -49,7 +58,7 @@ app.post('/movies', (req, res) => {
   }
 
   const newMovie = {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     ...req.body
   }
   movies.push(newMovie)
