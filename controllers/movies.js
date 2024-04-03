@@ -4,7 +4,7 @@ import { ValidateMovie, ValidatePartialMovie } from '../schemas/movies.js'
 export class MovieController {
   static async getAll (req, res) {
     const { genre } = req.query
-    const movies = await MovieModel.getALL({ genre })
+    const movies = await MovieModel.getAll({ genre })
     // Esto es lo que renderiza
     res.json(movies)
   }
